@@ -36,7 +36,7 @@ DESCRIPTION
     to do is add a current_user to your schema, and then use the role in
     your Model::DB.
 
-    This module makes it easy to have a "pre-authorized," schema and
+    This module makes it easy to have a "pre-authorized" schema and
     resultsets by using DBIx::Class::Schema::RestrictWithObject. Here's a
     real example:
 
@@ -99,33 +99,27 @@ DESCRIPTION
         __PACKAGE__->table("restriction");
         __PACKAGE__->add_columns(
           "approved",
-          { data_type => "boolean", default_value => \'false', is_nullable => 0, },
+          ...
           "approved_by",
-          { data_type => "integer", is_nullable => 1, },
+          ...
           "approved_at",
-          { data_type => "datetime", default_value => undef, is_nullable => 1, },
+          ...
           "item",
-          { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+          ...
         );
         __PACKAGE__->set_primary_key("item");
 
         __PACKAGE__->might_have(
           "blog",
-          "MyApp::Schema::Result::Blog",
-          { "foreign.id" => "self.item" },
-          { cascade_copy => 0, cascade_delete => 0 },
+          ...
         );
         __PACKAGE__->might_have(
           "comment",
-          "MyApp::Schema::Result::Comment",
-          { "foreign.id" => "self.item" },
-          { cascade_copy => 0, cascade_delete => 0 },
+          ...
         );
         __PACKAGE__->might_have(
           "message",
-          "MyApp::Schema::Result::Message",
-          { "foreign.id" => "self.item" },
-          { cascade_copy => 0, cascade_delete => 0 },
+          ...
         );
 
         method restrict_Blog_resultset($rs) {
