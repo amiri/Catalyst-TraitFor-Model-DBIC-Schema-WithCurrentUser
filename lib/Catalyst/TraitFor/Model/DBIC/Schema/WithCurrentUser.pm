@@ -31,11 +31,11 @@ Catalyst::TraitFor::Model::DBIC::Schema::WithCurrentUser
 
     use Moose;
     extends qw/Catalyst::Model::DBIC::Schema/;
-    with 'Catalyst::TraitFor::Model::DBIC::Schema::WithCurrentUser'; # This is the
-                                                                     # important bit.
 
     __PACKAGE__->config(
-        {   schema_class => 'MyApp::Schema',
+        {
+            traits => ['WithCurrentUser'], # The important bit!
+            schema_class => 'MyApp::Schema',
             connect_info => { dsn => 'dbi:SQLite:dbname=:memory:' },
         }
     );
