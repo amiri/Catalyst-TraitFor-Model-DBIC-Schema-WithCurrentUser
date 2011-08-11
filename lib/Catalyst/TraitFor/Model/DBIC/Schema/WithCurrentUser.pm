@@ -1,26 +1,21 @@
 package Catalyst::TraitFor::Model::DBIC::Schema::WithCurrentUser;
-
 use Moose::Role;
-requires 'ACCEPT_CONTEXT';
+use namespace::autoclean;
+
 with 'Catalyst::Component::InstancePerContext';
 
 # ABSTRACT: Puts the context's current user into your Catalyst::Model::DBIC::Schema schema.
 
-our %RE_ENTRY;
-
-sub ACCEPT_CONTEXT {
-    my $self = shift;
-    return $self if $RE_ENTRY{$self};
-    local $RE_ENTRY{$self} = 1;
-    return $self->build_per_context_instance(@_);
-}
-
 sub build_per_context_instance {
     my ( $self, $ctx ) = @_;
+    return $self unless blessed($ctx);
+
     my $new = bless {%$self}, ref $self;
+
     if ( $ctx->user_exists ) {
         $new->schema( $new->schema->clone )->current_user( $ctx->user );
     }
+
     return $new;
 }
 
@@ -36,11 +31,11 @@ Catalyst::TraitFor::Model::DBIC::Schema::WithCurrentUser
 
     use Moose;
     extends qw/Catalyst::Model::DBIC::Schema/;
-    with 'Catalyst::TraitFor::Model::DBIC::Schema::WithCurrentUser'; # This is the
-                                                                     # important bit.
 
     __PACKAGE__->config(
-        {   schema_class => 'MyApp::Schema',
+        {
+            traits => ['WithCurrentUser'], # The important bit!
+            schema_class => 'MyApp::Schema',
             connect_info => { dsn => 'dbi:SQLite:dbname=:memory:' },
         }
     );
