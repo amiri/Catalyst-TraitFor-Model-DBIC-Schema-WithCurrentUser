@@ -1,5 +1,7 @@
 Revison history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.03      2011-08-13
 	- Use traits config, remove ACCEPT_CONTEXT method
 
