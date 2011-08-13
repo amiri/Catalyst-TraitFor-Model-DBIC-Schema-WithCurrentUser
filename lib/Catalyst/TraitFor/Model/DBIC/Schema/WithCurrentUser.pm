@@ -1,8 +1,8 @@
 package Catalyst::TraitFor::Model::DBIC::Schema::WithCurrentUser;
 
 use Moose::Role;
-requires 'ACCEPT_CONTEXT';
 with 'Catalyst::Component::InstancePerContext';
+requires 'ACCEPT_CONTEXT';
 
 # ABSTRACT: Puts the context's current user into your Catalyst::Model::DBIC::Schema schema.
 
@@ -189,6 +189,10 @@ That's about it!
 =head1 AUTHOR
 
 Amiri Barksdale E<lt>amiri@arisdottle.netE<gt>
+
+=head1 CONTRIBUTORS
+
+Matt S. Trout (mst) E<lt>mst@shadowcat.co.ukE<gt>
 
 =head1 SEE ALSO
 

@@ -1,0 +1,10 @@
+Catalyst-*
+.build
+*.tar.gz
+.DS_Store
+*.sw?
+man
+src
+blib
+*.tmp
+*.old
