@@ -6,11 +6,11 @@ SYNOPSIS
 
         use Moose;
         extends qw/Catalyst::Model::DBIC::Schema/;
-        with 'Catalyst::TraitFor::Model::DBIC::Schema::WithCurrentUser'; # This is the
-                                                                         # important bit.
 
         __PACKAGE__->config(
-            {   schema_class => 'MyApp::Schema',
+            {
+                traits => ['WithCurrentUser'], # The important bit!
+                schema_class => 'MyApp::Schema',
                 connect_info => { dsn => 'dbi:SQLite:dbname=:memory:' },
             }
         );
@@ -158,6 +158,11 @@ DESCRIPTION
 
 AUTHOR
     Amiri Barksdale <amiri@arisdottle.net>
+
+CONTRIBUTORS
+    Matt S. Trout (mst) <mst@shadowcat.co.uk>
+
+    Tomas Doran (t0m) <bobtfish@bobtfish.net>
 
 SEE ALSO
     DBIx::Class::Schema::RestrictWithObject, DBIx::Class,
