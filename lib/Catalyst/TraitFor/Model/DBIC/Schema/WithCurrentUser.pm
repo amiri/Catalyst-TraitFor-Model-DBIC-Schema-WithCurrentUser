@@ -1,8 +1,9 @@
 package Catalyst::TraitFor::Model::DBIC::Schema::WithCurrentUser;
 use Moose::Role;
 use namespace::autoclean;
+use Catalyst::Model::DBIC::Schema 0.58 ();
 
-with 'Catalyst::Component::InstancePerContext';
+with 'Catalyst::TraitFor::Model::DBIC::Schema::PerRequestSchema';
 
 BEGIN {
     # VERSION
@@ -10,17 +11,12 @@ BEGIN {
 
 # ABSTRACT: Puts the context's current user into your Catalyst::Model::DBIC::Schema schema.
 
-sub build_per_context_instance {
-    my ( $self, $ctx ) = @_;
-    return $self unless blessed($ctx);
+sub per_request_schema_attributes {
+    my ($self, $ctx) = @_;
 
-    my $new = bless {%$self}, ref $self;
+    return () unless ( $ctx->user_exists );
 
-    if ( $ctx->user_exists ) {
-        $new->schema( $new->schema->clone )->current_user( $ctx->user );
-    }
-
-    return $new;
+    return ( current_user => $ctx->user );
 }
 
 1;
