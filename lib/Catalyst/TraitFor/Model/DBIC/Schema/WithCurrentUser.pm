@@ -1,9 +1,12 @@
 package Catalyst::TraitFor::Model::DBIC::Schema::WithCurrentUser;
+
 use Moose::Role;
 use namespace::autoclean;
-use Catalyst::Model::DBIC::Schema 0.58 ();
+use Catalyst::Model::DBIC::Schema 0.60 ();
 
-with 'Catalyst::TraitFor::Model::DBIC::Schema::PerRequestSchema';
+with 'Catalyst::TraitFor::Model::DBIC::Schema::PerRequestSchema' => {
+    -excludes => [ 'per_request_schema_attributes', ],
+};
 
 BEGIN {
     # VERSION
@@ -32,13 +35,11 @@ Catalyst::TraitFor::Model::DBIC::Schema::WithCurrentUser
     use Moose;
     extends qw/Catalyst::Model::DBIC::Schema/;
 
-    __PACKAGE__->config(
-        {
-            traits => ['WithCurrentUser'], # The important bit!
-            schema_class => 'MyApp::Schema',
-            connect_info => { dsn => 'dbi:SQLite:dbname=:memory:' },
-        }
-    );
+    __PACKAGE__->config({
+            traits          =>['WithCurrentUser'], # The important bit!
+            schema_class    => 'MyApp::Schema',
+            connect_info    => { dsn => 'dbi:SQLite:dbname=:memory:' },
+    });
 
     1;
 
@@ -183,7 +184,7 @@ That's about it!
 
 =head1 AUTHOR
 
-Amiri Barksdale E<lt>amiri@arisdottle.netE<gt>
+Amiri Barksdale E<lt>amiri@roosterpirates.comE<gt>
 
 =head1 CONTRIBUTORS
 
