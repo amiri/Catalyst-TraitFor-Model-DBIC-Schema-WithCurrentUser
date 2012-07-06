@@ -2,6 +2,10 @@ Revison history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.06      2012-07-05
+    - Add missing dependency MooseX::MarkAsMethods
+      (Amiri Barksdale)
+
 0.05      2012-07-04
     - Exclude unwanted stub method from
       upstream trait, fixing http://www.cpantesters.org/
