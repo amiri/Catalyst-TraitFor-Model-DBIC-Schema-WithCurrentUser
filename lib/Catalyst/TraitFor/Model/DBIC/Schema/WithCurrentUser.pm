@@ -14,8 +14,14 @@ BEGIN {
 
 # ABSTRACT: Puts the context's current user into your Catalyst::Model::DBIC::Schema schema.
 
+our $RECURSION = 0;
+
 sub per_request_schema_attributes {
     my ($self, $ctx) = @_;
+
+    local $RECURSION = $RECURSION + 1;
+
+    return () if $RECURSION > 1;
 
     return () unless ( $ctx->user_exists );
 

@@ -2,6 +2,15 @@ Revison history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.07      2013-07-06
+
+0.07      2013-07-06
+    - Add test counts
+    - Fix deep recursion issue:
+      https://github.com/amiri/
+      Catalyst-TraitFor-Model-DBIC-Schema-WithCurrentUser/
+      issues/3
+
 0.06      2012-07-05
     - Add missing dependency MooseX::MarkAsMethods
       (Amiri Barksdale)
